@@ -1,0 +1,83 @@
+    <h1>Lista de Usuarios - Administrador</h1>
+    <div class="container">
+        <button id="backButton">Volver</button>
+        <div class="infoUser">
+            <h2>Lista de Usuarios con Handlebars</h2>
+            <div class="detalleUser" id="usersContainer">
+                <ul>
+                    {{#each users}}
+                    <li data-name="{{this.first_name}}" data-email="{{this.email}}" data-rol="{{this.rol}}" data-id="{{this._id}}">
+                        <strong>Id:</strong> {{this._id}}<br>
+                        <strong>Nombre:</strong> {{this.first_name}}<br>
+                        <strong>Email:</strong> {{this.email}}<br>
+                        <strong>Rol:</strong> {{this.rol}}<br><br>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <div class="formulario">
+            <h2>Actualizar o Eliminar Usuarios</h2>
+            <form id="user-form">
+                <input type="hidden" id="userId" name="userId">
+                <div class="inputs">
+                    <div>
+                        <input type="text" id="name" autocomplete="off" placeholder="Nombre" required>
+                        <input type="text" id="email" autocomplete="off" placeholder="Email" required>
+                    </div>
+                    <div>
+                        <select name="rol" id="rol" style="width: 200px;">
+                            <option value="admin" selected>Admin</option>
+                            <option value="usuario">Usuario</option>
+                            <option value="premium">Premium</option>
+                        </select>
+                    </div>
+                </div>
+                <label>Selecciona un usuario de la lista para actualizar o eliminar:</label>
+                <div class="botones">
+                    <button type="submit" id="btnCrear">Guardar Cambios</button>
+                    <input type="checkbox" id="eliminarUser" name="eliminarUsuario">
+                    <label for="eliminarUser">Eliminar Usuario</label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+
+<script>
+    document.getElementById('backButton').addEventListener('click', function() {
+    window.location.href = '/admin';
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const usersList = document.getElementById("usersContainer");
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const rolInput = document.getElementById("rol");
+    const idInput = document.getElementById("userId");
+
+    usersList.addEventListener("click", function (event) {
+        const clickedElement = event.target;
+        if (clickedElement.tagName === "LI") {
+            const name = clickedElement.getAttribute("data-name");
+            const email = clickedElement.getAttribute("data-email");
+            const rol = clickedElement.getAttribute("data-rol");
+            const userId = clickedElement.getAttribute("data-id");
+
+            nameInput.value = name;
+            emailInput.value = email;
+            for (let i = 0; i < rolInput.options.length; i++) {
+                if (rolInput.options[i].value === rol) {
+                    rolInput.selectedIndex = i;
+                    break;
+                }
+            }
+            idInput.value = userId;
+        }
+    });
+});
+
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/realTimeUsers.js"></script>

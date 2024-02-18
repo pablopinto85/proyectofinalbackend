@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Enlazar el archivo de estilos -->
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form id="loginForm" class="formulario">
+            <input type="text" name="email" id="email" placeholder="Ingrese Email">
+            <input type="password" name="password" id="password" placeholder="Ingrese Contraseña">
+            <button type="submit" class="btn-primary">Iniciar Sesión</button>
+            <button type="button" id="forgotPasswordButton" class="btn-secondary">Recuperar Contraseña</button>
+            <label id="lblRecuperacion"></label>
+        </form>
+        <a href="/register" class="registrarse-link">Registrarse</a>
+    </div>
+    <script src="/login.js"></script>
+</body>
+</html>
